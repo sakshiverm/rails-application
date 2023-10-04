@@ -1,0 +1,33 @@
+<!-- _new_article_form.html.erb -->
+<div id="newArticlePopup" aria-hidden="true">
+  <%= form_with model: @article, remote: true, id: 'new-article-form', url: articles_path do |form| %>
+    <div>
+      <%= form.label :title %><br>
+      <%= form.text_field :title %>
+    </div>
+
+    <div>
+      <%= form.label :body %><br>
+      <%= form.text_area :body %><br>
+    </div>
+
+    <div>
+      <%= form.submit %>
+    </div>
+  <% end %>
+</div>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    MicroModal.init();
+    var form = document.getElementById('new-article-form');
+    form.addEventListener('ajax:success', function(event) {
+      MicroModal.close('newArticlePopup');
+    });
+
+    form.addEventListener('ajax:error', function(event) {
+      // Handle errors if needed
+    });
+  });
+</script>
+
